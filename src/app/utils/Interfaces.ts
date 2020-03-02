@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 import { Request } from 'express';
 
 interface FastFeetReq extends Request {

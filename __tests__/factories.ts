@@ -19,4 +19,9 @@ factory.define('User', User, {
   password: faker.internet.password(),
 });
 
+factory.define('File', User, {
+  name: `${faker.name.firstName()}.png`,
+  path: faker.random.alphaNumeric(20),
+});
+
 export default factory;

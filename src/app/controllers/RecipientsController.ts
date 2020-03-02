@@ -18,7 +18,7 @@ class RecipientsController {
   async store(req: FastFeetReq, res: Response): Promise<Response> {
     const reponse = await RecipientServices.create(req.body);
 
-    return res.json(reponse);
+    return res.status(201).json(reponse);
   }
 
   async update(req: FastFeetReq, res: Response): Promise<Response> {
