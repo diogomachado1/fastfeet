@@ -1,15 +1,20 @@
-import { Model ,STRING, VIRTUAL } from 'sequelize';
+import { Model, STRING, VIRTUAL } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
-class User extends Model{
+class User extends Model {
   public id!: number;
+
   public name: string;
+
   public email: string;
+
   public password: string;
+
   public password_hash: string;
 
   static associate;
-  static initModel(sequelize) {
+
+  static initModel(sequelize): typeof User {
     this.init(
       {
         name: STRING,
@@ -21,7 +26,7 @@ class User extends Model{
         sequelize,
       }
     );
-    this.addHook('beforeSave', async (user:User) => {
+    this.addHook('beforeSave', async (user: User) => {
       if (user.password) {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
@@ -30,7 +35,7 @@ class User extends Model{
     return this;
   }
 
-  static async getByEmail(email){
+  static async getByEmail(email): Promise<User> {
     return this.findOne({
       where: {
         email,
@@ -38,7 +43,7 @@ class User extends Model{
     });
   }
 
-  checkPassword(password) {
+  async checkPassword(password): Promise<boolean> {
     return bcrypt.compare(password, this.password_hash);
   }
 }

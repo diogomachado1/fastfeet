@@ -1,7 +1,7 @@
-import FFError from "./FFError";
+import FFError from './FFError';
 
 export default class NotFoundError extends FFError {
   constructor(entity: string) {
-    super(`${entity} not found`,'notFound',404);
+    super(`${entity} not found`, 'notFound', 404);
   }
 }

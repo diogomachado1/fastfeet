@@ -29,8 +29,7 @@ describe('Session Create', () => {
   });
 
   it('should return error without token', async () => {
-    const response = await request(app.server)
-      .get('/recipient');
+    const response = await request(app.server).get('/recipient');
 
     expect(response.status).toBe(401);
     expect(response.body.message).toMatch(/Unauthorized/);

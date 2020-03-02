@@ -2,13 +2,21 @@ import { Model, STRING } from 'sequelize';
 
 class Recipient extends Model {
   public id!: number;
+
   public name: string;
+
   public street: string;
+
   public number: string;
+
   public addressComplement: string;
+
   public city: string;
+
   public state: string;
+
   public cep: string;
+
   static attributes = [
     'id',
     'name',
@@ -23,7 +31,8 @@ class Recipient extends Model {
   ];
 
   static associate;
-  static initModel(sequelize) {
+
+  static initModel(sequelize): typeof Recipient {
     this.init(
       {
         name: STRING,
@@ -42,7 +51,13 @@ class Recipient extends Model {
     return this;
   }
 
-  static async getAll(page,limit){
+  static async getAll(
+    page,
+    limit
+  ): Promise<{
+    rows: Recipient[];
+    count: number;
+  }> {
     return this.findAndCountAll({
       attributes: this.attributes,
       limit,
@@ -50,10 +65,10 @@ class Recipient extends Model {
     });
   }
 
-  static async getOne(id){
+  static async getOne(id): Promise<Recipient> {
     return this.findByPk(id, {
       attributes: this.attributes,
-    })
+    });
   }
 }
 

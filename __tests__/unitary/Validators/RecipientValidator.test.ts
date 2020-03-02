@@ -10,7 +10,9 @@ describe('RecipientValidator', () => {
 
   it('should Validate when create a recipient', async () => {
     const recipient = await factory.attrs('Recipient');
-    const validatedRecipient = await RecipientValidator.storeValidate(recipient);
+    const validatedRecipient = await RecipientValidator.storeValidate(
+      recipient
+    );
     expect(validatedRecipient).toEqual(recipient);
   });
   it('should have name when create a recipient', async () => {
@@ -57,14 +59,14 @@ describe('RecipientValidator', () => {
     );
   });
 
-    it('should have city when create a recipient', async () => {
-      const recipient = await factory.attrs('Recipient', {
-        city: undefined,
-      });
-      await expect(RecipientValidator.storeValidate(recipient)).rejects.toThrow(
-        /city is a required field./
-      );
+  it('should have city when create a recipient', async () => {
+    const recipient = await factory.attrs('Recipient', {
+      city: undefined,
     });
+    await expect(RecipientValidator.storeValidate(recipient)).rejects.toThrow(
+      /city is a required field./
+    );
+  });
 
   it('should have state when create a recipient', async () => {
     const recipient = await factory.attrs('Recipient', {
@@ -86,7 +88,9 @@ describe('RecipientValidator', () => {
 
   it('should Validate when update a recipient', async () => {
     const recipient = await factory.attrs('Recipient');
-    const validatedRecipient = await RecipientValidator.updateValidate(recipient);
+    const validatedRecipient = await RecipientValidator.updateValidate(
+      recipient
+    );
     expect(validatedRecipient).toEqual(recipient);
   });
 });

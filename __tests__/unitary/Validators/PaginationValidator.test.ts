@@ -1,7 +1,5 @@
 import PaginationValidator from '../../../src/app/Validators/PaginationValidator';
 
-import factory from '../../factories';
-
 describe('PaginationValidator', () => {
   it('methods should exist', async () => {
     expect(PaginationValidator.paginationValidate).toBeTruthy();
@@ -11,7 +9,7 @@ describe('PaginationValidator', () => {
     const pagination = {
       page: 2,
     };
-    const response = await PaginationValidator.paginationValidate(pagination)
+    const response = await PaginationValidator.paginationValidate(pagination);
     expect(response.page).toBe(2);
   });
 
@@ -19,7 +17,7 @@ describe('PaginationValidator', () => {
     const pagination = {
       page: undefined,
     };
-    const response = await PaginationValidator.paginationValidate(pagination)
+    const response = await PaginationValidator.paginationValidate(pagination);
     expect(response.page).toBe(1);
   });
 
@@ -27,17 +25,17 @@ describe('PaginationValidator', () => {
     const pagination = {
       page: -1,
     };
-    await expect(PaginationValidator.paginationValidate(pagination)).rejects.toThrow(
-      /page must be greater than or equal to 1/
-    );
+    await expect(
+      PaginationValidator.paginationValidate(pagination)
+    ).rejects.toThrow(/page must be greater than or equal to 1/);
   });
 
   it('sshould have page number value', async () => {
     const pagination = {
       page: 'test',
     };
-    await expect(PaginationValidator.paginationValidate(pagination)).rejects.toThrow(
-      /page must be a `number` type/
-    );
+    await expect(
+      PaginationValidator.paginationValidate(pagination)
+    ).rejects.toThrow(/page must be a `number` type/);
   });
 });

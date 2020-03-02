@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import JwtServices from '../../../src/app/Services/JwtServices';
 
 describe('JwtServices', () => {
@@ -21,7 +20,6 @@ describe('JwtServices', () => {
   it('should throw error when token invalid', async () => {
     const token = await JwtServices.createToken(1);
 
-    expect(()=>JwtServices.verifyToken(token+1)).toThrow(/Unauthorized/);
+    expect(() => JwtServices.verifyToken(token + 1)).toThrow(/Unauthorized/);
   });
-
 });

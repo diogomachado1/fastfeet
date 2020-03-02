@@ -1,4 +1,4 @@
-import {Sequelize, Options} from 'sequelize';
+import { Sequelize } from 'sequelize';
 
 import * as databaseConfig from '../config/database.js';
 
@@ -9,11 +9,12 @@ const models = [User, Recipients];
 
 class Database {
   public connection: Sequelize;
+
   constructor() {
     this.init();
   }
 
-  init() {
+  init(): void {
     this.connection = new Sequelize(databaseConfig);
 
     models
@@ -21,7 +22,7 @@ class Database {
       .map(model => model.associate && model.associate(this.connection.models));
   }
 
-  close() {
+  close(): void {
     this.connection.close();
   }
 }

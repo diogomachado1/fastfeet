@@ -1,6 +1,6 @@
-import './bootstrap';
-import {Express, Request, Response, NextFunction} from 'express';
-import express from 'express';
+import './bootstrap.js';
+import express, { Response, Express, Request } from 'express';
+
 import Youch from 'youch';
 import 'express-async-errors';
 import cors from 'cors';
@@ -9,7 +9,6 @@ import database from './database';
 import FFError from './app/Error/FFError';
 
 class App {
-
   server: Express;
 
   constructor() {
@@ -19,32 +18,35 @@ class App {
     this.routes();
     this.exceptionHandler();
   }
-  middlewares() {
+
+  middlewares(): void {
     this.server.use(cors());
     this.server.use(express.json());
   }
 
-  routes() {
+  routes(): void {
     this.server.use(routes);
   }
 
-  close() {
-    database.close()
+  close(): void {
+    database.close();
   }
 
-  exceptionHandler() {
-    this.server.use(async (err: FFError , req: Request, res: Response, next: NextFunction) => {
-      if (err.name === 'FastFeetError') {
-        return res.status(err.status).json(err.body);
-      }
-      if (process.env.NODE_ENV !== 'development') {
-        const errors = await new Youch(err, req).toJSON();
+  exceptionHandler(): void {
+    this.server.use(
+      async (err: FFError, req: Request, res: Response): Promise<Response> => {
+        if (err.name === 'FastFeetError') {
+          return res.status(err.status).json(err.body);
+        }
+        if (process.env.NODE_ENV !== 'development') {
+          const errors = await new Youch(err, req).toJSON();
 
-        return res.status(500).json(errors);
-      }
+          return res.status(500).json(errors);
+        }
 
-      return res.status(500).json({ error: 'Internal server error' });
-    });
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+    );
   }
 }
 

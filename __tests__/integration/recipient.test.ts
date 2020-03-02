@@ -4,6 +4,7 @@ import factory from '../factories';
 
 import truncate from '../util/truncate';
 import { createToken, createRecipient } from '../util/functions';
+import Recipient from '../../src/app/models/Recipient';
 
 describe('Recipient integration', () => {
   beforeEach(async () => {
@@ -12,7 +13,7 @@ describe('Recipient integration', () => {
 
   it('should be able to create a recipient', async () => {
     const { token } = await createToken();
-    const recipient = await (<Object>factory.attrs('Recipient'));
+    const recipient = (await factory.attrs('Recipient')) as Recipient;
 
     const response = await request(app.server)
       .post('/recipients')
@@ -43,7 +44,7 @@ describe('Recipient integration', () => {
   it('should be able to update a recipient', async () => {
     const { recipient, token } = await createRecipient();
 
-    const newRecipient = await (<Object>factory.attrs('Recipient'));
+    const newRecipient = (await factory.attrs('Recipient')) as Recipient;
     const response = await request(app.server)
       .put(`/recipients/${recipient.id}`)
       .set('Authorization', `bearer ${token}`)

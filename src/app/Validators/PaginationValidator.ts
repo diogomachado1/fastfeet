@@ -1,9 +1,11 @@
-import {number,object} from 'yup';
+import { number, object } from 'yup';
 import Validator from './Validator';
-import {Pagination} from '../utils/Interfaces';
+import { Pagination } from '../utils/Interfaces';
+
 class PaginationValidator extends Validator {
   private paginationSchema;
-  constructor(){
+
+  constructor() {
     super();
     this.paginationSchema = object().shape({
       page: number()
@@ -12,9 +14,9 @@ class PaginationValidator extends Validator {
     });
   }
 
-  async paginationValidate(data):Promise<Pagination>{
-    return this.validate(this.paginationSchema, data)
+  async paginationValidate(data): Promise<Pagination> {
+    return this.validate(this.paginationSchema, data);
   }
 }
 
-export default new PaginationValidator()
+export default new PaginationValidator();

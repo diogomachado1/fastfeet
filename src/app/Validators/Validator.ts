@@ -1,8 +1,11 @@
-import {ObjectSchema, ArraySchema,} from 'yup'
+import { ObjectSchema, ArraySchema } from 'yup';
 import BadRequestError from '../Error/BadRequestError';
 
-class Validator{
-  protected async validate(schema: ObjectSchema<any> | ArraySchema<ObjectSchema>, data) {
+class Validator {
+  protected async validate(
+    schema: ObjectSchema<any> | ArraySchema<ObjectSchema>,
+    data
+  ): Promise<any> {
     try {
       const response = await schema.validate(data, {
         abortEarly: true,
@@ -14,6 +17,5 @@ class Validator{
     }
   }
 }
-
 
 export default Validator;

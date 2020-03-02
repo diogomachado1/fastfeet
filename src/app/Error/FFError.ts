@@ -5,9 +5,13 @@ interface BodyError {
 
 export default class FFError extends Error {
   public name: string;
+
   public message: string;
+
   public type: string;
+
   public status: number;
+
   public body: BodyError;
 
   constructor(message, type, status) {
@@ -23,6 +27,6 @@ export default class FFError extends Error {
     this.body = {
       status: 'error',
       message: this.message,
-    }
+    };
   }
 }

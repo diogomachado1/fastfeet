@@ -5,25 +5,27 @@ import app from '../../src/app';
 import factory from '../factories';
 import Recipient from '../../src/app/models/Recipient';
 
-async function createToken() {
+async function createToken(): Promise<{
+  token: string;
+}> {
   const { body } = await request(app.server)
     .post('/sessions')
     .send({ email: 'admin@fastfeet.com', password: '123456' });
   return body;
 }
 
-async function createRecipient() {
+async function createRecipient(): Promise<{
+  token: string;
+  recipient: Recipient;
+}> {
   const { token } = await createToken();
-  const recipient = await <Object>factory.attrs('Recipient');
+  const recipient = (await factory.attrs('Recipient')) as Recipient;
 
   const response = await request(app.server)
     .post('/recipients')
     .set('Authorization', `bearer ${token}`)
     .send(recipient);
-  return {recipient: <Recipient>response.body, token};
+  return { recipient: response.body as Recipient, token };
 }
 
-export {
-  createToken,
-  createRecipient
-};
+export { createToken, createRecipient };

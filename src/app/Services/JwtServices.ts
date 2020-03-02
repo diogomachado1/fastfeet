@@ -1,21 +1,21 @@
-import jwt from "jsonwebtoken";
-import authConfig from "../../config/authConfig";
-import UnauthorizedError from "../Error/UnauthorizedError";
+import jwt from 'jsonwebtoken';
+import authConfig from '../../config/authConfig';
+import UnauthorizedError from '../Error/UnauthorizedError';
 
 class JwtServices {
-  createToken(id){
+  createToken(id): string {
     return jwt.sign({ id }, authConfig.secret, {
       expiresIn: authConfig.expiresIn,
     });
   }
-  verifyToken(token){
+
+  verifyToken(token): number {
     try {
-      const decoded = jwt.verify(token, authConfig.secret);
-      return decoded['id'];
+      const decoded = jwt.verify(token, authConfig.secret) as { id };
+      return decoded.id;
     } catch (err) {
       throw new UnauthorizedError();
     }
-
   }
 }
 

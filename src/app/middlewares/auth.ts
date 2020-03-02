@@ -1,9 +1,9 @@
-import UnauthorizedError from '../Error/UnauthorizedError'
+import { Response, NextFunction } from 'express';
+import UnauthorizedError from '../Error/UnauthorizedError';
 import JwtServices from '../Services/JwtServices';
-import { Response } from 'express';
 import FastFeetReq from '../utils/Interfaces';
 
-export default async (req: FastFeetReq, res: Response, next) => {
+export default (req: FastFeetReq, _res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

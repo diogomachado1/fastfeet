@@ -1,9 +1,13 @@
-import {string, object} from 'yup';
+import { string, object } from 'yup';
 import Validator from './Validator';
+import Recipient from '../models/Recipient';
+
 class RecipientValidator extends Validator {
   private storeSchema;
+
   private updateSchema;
-  constructor(){
+
+  constructor() {
     super();
     this.storeSchema = object().shape({
       name: string().required(),
@@ -25,12 +29,13 @@ class RecipientValidator extends Validator {
     });
   }
 
-  async storeValidate(data){
-    return this.validate(this.storeSchema, data)
+  async storeValidate(data): Promise<Recipient> {
+    return this.validate(this.storeSchema, data);
   }
-  async updateValidate(data){
-    return this.validate(this.updateSchema, data)
+
+  async updateValidate(data): Promise<Recipient> {
+    return this.validate(this.updateSchema, data);
   }
 }
 
-export default new RecipientValidator()
+export default new RecipientValidator();
