@@ -24,4 +24,9 @@ factory.define('File', User, {
   path: faker.random.alphaNumeric(20),
 });
 
+factory.define('Deliveryman', User, {
+  name: faker.name.findName(),
+  email: faker.internet.email(),
+});
+
 export default factory;

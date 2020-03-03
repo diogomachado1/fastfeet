@@ -13,7 +13,7 @@ class RecipientValidator extends Validator {
       name: string().required(),
       street: string().required(),
       number: string().required(),
-      addressComplement: string().required(),
+      addressComplement: string(),
       city: string().required(),
       state: string().required(),
       cep: string().required(),

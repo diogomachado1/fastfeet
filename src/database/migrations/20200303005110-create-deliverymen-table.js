@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('recipients', {
+    return queryInterface.createTable('deliverymen', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -12,30 +12,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      street: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
-      number: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      avatar_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'files', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNull: true,
       },
-      address_complement: {
-        type: Sequelize.STRING,
-      },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      cep: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -48,6 +36,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('recipients');
+    return queryInterface.dropTable('deliverymen');
   },
 };

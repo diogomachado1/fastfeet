@@ -7,6 +7,7 @@ export default async function truncate(): Promise<void> {
       return database.connection.models[key].destroy({
         truncate: true,
         force: true,
+        cascade: true,
       });
     }),
   ]);
@@ -14,6 +15,13 @@ export default async function truncate(): Promise<void> {
     name: 'Distribuidora FastFeet',
     email: 'admin@fastfeet.com',
     password_hash: bcrypt.hashSync('123456', 8),
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+  await database.connection.models.File.create({
+    id: 1,
+    name: 'test.png',
+    path: '34e8jsd8ds7d34eu3hds.png',
     created_at: new Date(),
     updated_at: new Date(),
   });

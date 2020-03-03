@@ -50,15 +50,6 @@ describe('RecipientValidator', () => {
     );
   });
 
-  it('should have addressComplement when create a recipient', async () => {
-    const recipient = await factory.attrs('Recipient', {
-      addressComplement: undefined,
-    });
-    await expect(RecipientValidator.storeValidate(recipient)).rejects.toThrow(
-      /addressComplement is a required field./
-    );
-  });
-
   it('should have city when create a recipient', async () => {
     const recipient = await factory.attrs('Recipient', {
       city: undefined,

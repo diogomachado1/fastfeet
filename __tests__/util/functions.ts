@@ -4,6 +4,7 @@ import app from '../../src/app';
 
 import factory from '../factories';
 import Recipient from '../../src/app/models/Recipient';
+import Deliveryman from '../../src/app/models/Deliveryman';
 
 async function createToken(): Promise<{
   token: string;
@@ -28,4 +29,20 @@ async function createRecipient(): Promise<{
   return { recipient: response.body as Recipient, token };
 }
 
-export { createToken, createRecipient };
+async function createDeliveryman(): Promise<{
+  token: string;
+  deliveryman: Deliveryman;
+}> {
+  const { token } = await createToken();
+  const deliveryman = (await factory.attrs('Deliveryman', {
+    id: 1,
+  })) as Deliveryman;
+
+  const response = await request(app.server)
+    .post('/Deliverymen')
+    .set('Authorization', `bearer ${token}`)
+    .send(deliveryman);
+  return { deliveryman: response.body as Deliveryman, token };
+}
+
+export { createToken, createRecipient, createDeliveryman };
